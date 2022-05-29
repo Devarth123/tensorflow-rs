@@ -31,11 +31,14 @@ pub fn read_csv(path_of_the_file: &str) -> Vec<Vec<f32>>{
     let mut push_vec: Vec<f32> = vec![];
     for j in i.chars() {
         if j != ','{
-            let push_element: f32 = j
-                                    .to_string()
-                                    .parse()
-                                    .expect("The methmod is not working at line 36\n {}");
-            push_vec.push(push_element);
+            // let push_element: f32 = j
+            //                         .to_string()
+            //                         .parse()
+            //                         .expect("The methmod is not working at line 36\n {}");
+            push_vec.push(j 
+                          .to_string()
+                          .parse::<f32>()
+                          .expect("the method is not working at line 40"));
             } 
     }
     str_to_f32.push(push_vec);
