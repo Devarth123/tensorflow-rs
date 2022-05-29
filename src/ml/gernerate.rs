@@ -1,7 +1,7 @@
 extern crate rand;
 
 use std::collections::HashMap;
-use rand::{Rng, thread_rng};
+use rand::Rng;
 
 
 pub fn storing_labels<'a>(formated_data: &'a Vec<f32>, labels: &mut HashMap<u16, &'a[f32]>){

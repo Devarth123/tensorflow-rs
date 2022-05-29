@@ -14,7 +14,7 @@ pub fn breaker(not_formated_string: &str) -> Vec<String> {
     formated_string
 }
 
-pub fn count_new_lines(string: &str) -> u16{
+fn count_new_lines(string: &str) -> u16{
     let mut new_lines = 0;
     for i in string.chars(){
         if i == '\n'{
