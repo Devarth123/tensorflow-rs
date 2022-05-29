@@ -21,18 +21,31 @@ pub fn matrix_create32<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct32<'a>{
         //     matrix.matrix = vec![vec![229129389123 as f64; 120391230]; 129839123];    
         // }
 
-pub fn dot32<'a>(m1: MatrixStruct32<'a>, m2: MatrixStruct32<'a>) -> MatrixStruct32<'a>{
+pub fn dot32<'a>(m1: MatrixStruct32<'a>, m2: MatrixStruct32<'a>) ->  MatrixStruct32<'a>{
         assert_eq!(m1.rows, m2.columns);
         let mut matrix: MatrixStruct32 = matrix_create32(m1.rows, m2.columns); 
-        for i in 0..*m1.rows{
-                for j in 0..*m2.columns{
+        for i in 0..*m1.rows as usize{
+                for j in 0..*m2.columns as usize{
                 let mut product: f32 = 0.0;
-                  for k in 0..*m2.rows{
-                        product+=m1.matrix[i as usize][k as usize] * m2.matrix[j as usize][k as usize];
+                  for k in 0..*m2.rows as usize{
+                        product+=m1.matrix[i][k] * m2.matrix[j][k];
                   }
-                  matrix.matrix[i as usize][j as usize] = product;
+                  matrix.matrix[i][j] = product;
                 }
         
         }
    matrix
+}
+pub fn add<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStruct32<'a>{
+        let mut matrix: MatrixStruct32 = matrix_create32(m1.rows, m1.columns); 
+        if (m1.rows == m2.columns) && (m1.columns == m2.columns) {
+                for i in 0..*m1.rows as usize{
+                        for j in 0..*m1.columns as usize{
+                                matrix.matrix[i][j] = m1.matrix[i][j] + m2.matrix[i][j];
+                        }
+                }
+        }else{
+                panic!("dimensions not matched\n dimensions for first matrix is {}\t{}\nthe dimensions for the second matrix is {}\t{}", m1.rows, m1.columns, m2.rows, m2.columns);
+        }
+        matrix 
 }
