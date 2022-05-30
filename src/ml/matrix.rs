@@ -91,7 +91,7 @@ pub fn subtract32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStru
         let mut matrix = matrix_create32(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m1.columns as usize{
-                        matrix.matrix[i][j] = m1.matrix[i][j] - m2.matrix[i][j];
+                        matrix.matrix[i][j] = f32::abs(m1.matrix[i][j] - m2.matrix[i][j]);
                 }
         }
         matrix
@@ -102,7 +102,7 @@ pub fn subtract64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStru
         let mut matrix = matrix_create64(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m1.columns as usize{
-                        matrix.matrix[i][j] = m1.matrix[i][j] - m2.matrix[i][j];
+                        matrix.matrix[i][j] = f64::abs(m1.matrix[i][j] - m2.matrix[i][j]);
                 }
         }
         matrix
