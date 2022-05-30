@@ -136,4 +136,39 @@ pub fn multiply64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStru
         }
         matrix
 }
-// pub fn 
+pub fn add_by_scalar32<'a>(m1: &'a MatrixStruct32, num: &f32) -> MatrixStruct32<'a> {
+       let mut matrix = matrix_create32(m1.rows, m1.columns);
+       for i in 0..*m1.rows as usize{
+               for j in 0..*m1.columns as usize{
+                       matrix.matrix[i][j] += *num;
+               }
+       }
+   matrix
+}
+pub fn add_by_scalar64<'a>(m1: &'a MatrixStruct64, num: &f64) -> MatrixStruct64<'a> {
+       let mut matrix = matrix_create64(m1.rows, m1.columns);
+       for i in 0..*m1.rows as usize{
+               for j in 0..*m1.columns as usize{
+                       matrix.matrix[i][j] += *num;
+               }
+       }
+   matrix
+}
+pub fn transpose32<'a>(m: &'a MatrixStruct32) -> MatrixStruct32<'a>{
+        let mut matrix = matrix_create32(m.columns, m.rows);
+        for i in 0..*m.rows as usize{
+                for j in 0..*m.columns as usize{
+                        matrix.matrix[j][i] = m.matrix[i][j];
+                }
+        }
+        matrix
+}
+pub fn transpose64<'a>(m: &'a MatrixStruct64) -> MatrixStruct64<'a>{
+        let mut matrix = matrix_create64(m.columns, m.rows);
+        for i in 0..*m.rows as usize{
+                for j in 0..*m.columns as usize{
+                        matrix.matrix[j][i] = m.matrix[i][j];
+                }
+        }
+        matrix
+}
