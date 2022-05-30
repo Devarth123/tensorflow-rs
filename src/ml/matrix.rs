@@ -42,7 +42,7 @@ pub fn matrix_create64<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct64<'a>{
            product
      }
 pub fn dot32<'a>(m1: MatrixStruct32<'a>, m2: MatrixStruct32<'a>) ->  MatrixStruct32<'a>{
-        assert_eq!(m1.rows, m2.columns);
+        assert_eq!(m1.rows, m2.columns, "the dimensions dont match matrix1.row = {} \t matrix2.column = {}", m1.rows, m2.columns);
         let mut matrix: MatrixStruct32 = matrix_create32(m1.rows, m2.columns); 
         for i in 0..*m1.rows as usize{
                 for j in 0..*m2.columns as usize{
@@ -58,7 +58,8 @@ pub fn dot32<'a>(m1: MatrixStruct32<'a>, m2: MatrixStruct32<'a>) ->  MatrixStruc
 }
 
 pub fn dot64<'a>(m1: MatrixStruct64<'a>, m2: MatrixStruct64<'a>) ->  MatrixStruct64<'a>{
-        assert_eq!(m1.rows, m2.columns);
+        assert_eq!(m1.rows, m2.columns, "the dimensions dont match matrix1.row = {} \t matrix2.column = {}", m1.rows, m2.columns);
+        // assert_eq!(m1.rows, m2.columns);
         let mut matrix: MatrixStruct64 = matrix_create64(m1.rows, m2.columns); 
         for i in 0..*m1.rows as usize{
                 for j in 0..*m2.columns as usize{
@@ -73,19 +74,18 @@ pub fn dot64<'a>(m1: MatrixStruct64<'a>, m2: MatrixStruct64<'a>) ->  MatrixStruc
    matrix
 }
 pub fn add32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStruct32<'a>{
+        assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns); 
         let mut matrix: MatrixStruct32 = matrix_create32(m1.rows, m1.columns); 
-        if (m1.rows == m2.columns) && (m1.columns == m2.columns) {
+        // if (m1.rows == m2.columns) && (m1.columns == m2.columns) {
                 for i in 0..*m1.rows as usize{
                         for j in 0..*m1.columns as usize{
                                 matrix.matrix[i][j] = m1.matrix[i][j] + m2.matrix[i][j];
                         }
                 }
-        }else{
-                panic!("dimensions not matched\n dimensions for first matrix is {}\t{}\nthe dimensions for the second matrix is {}\t{}", m1.rows, m1.columns, m2.rows, m2.columns);
-        }
-        matrix 
+        matrix
 }
 pub fn add64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStruct64<'a>{
+        assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns); 
         let mut matrix: MatrixStruct64 = matrix_create64(m1.rows, m1.columns); 
         if (m1.rows == m2.columns) && (m1.columns == m2.columns) {
                 for i in 0..*m1.rows as usize{
@@ -99,7 +99,7 @@ pub fn add64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStruct64<
         matrix 
 }
 pub fn subtract32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStruct32<'a>{
-        assert!(m1.rows == m2.rows && m1.columns == m2.columns);
+        assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns); 
         let mut matrix = matrix_create32(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m1.columns as usize{
@@ -110,7 +110,7 @@ pub fn subtract32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStru
 }
 
 pub fn subtract64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStruct64<'a>{
-        assert!(m1.rows == m2.rows && m1.columns == m2.columns);
+        assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns); 
         let mut matrix = matrix_create64(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m1.columns as usize{
@@ -120,7 +120,7 @@ pub fn subtract64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStru
         matrix
 }
 pub fn multiply32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStruct32<'a>{
-        assert!(m1.rows==m2.rows && m1.columns == m2.columns);
+        assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns); 
         let mut matrix = matrix_create32(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m2.columns as usize {
@@ -131,7 +131,7 @@ pub fn multiply32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStru
 }
 
 pub fn multiply64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStruct64<'a>{
-        assert!(m1.rows==m2.rows && m1.columns == m2.columns);
+        assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns); 
         let mut matrix = matrix_create64(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m2.columns as usize {
