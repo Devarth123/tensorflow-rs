@@ -87,15 +87,11 @@ pub fn add32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStruct32<
 pub fn add64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStruct64<'a>{
         assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns); 
         let mut matrix: MatrixStruct64 = matrix_create64(m1.rows, m1.columns); 
-        if (m1.rows == m2.columns) && (m1.columns == m2.columns) {
                 for i in 0..*m1.rows as usize{
                         for j in 0..*m1.columns as usize{
                                 matrix.matrix[i][j] = m1.matrix[i][j] + m2.matrix[i][j];
                         }
                 }
-        }else{
-                panic!("dimensions not matched\n dimensions for first matrix is {}\t{}\nthe dimensions for the second matrix is {}\t{}", m1.rows, m1.columns, m2.rows, m2.columns);
-        }
         matrix 
 }
 pub fn subtract32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStruct32<'a>{
