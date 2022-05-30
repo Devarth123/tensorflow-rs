@@ -17,6 +17,18 @@ pub fn matrix_create32<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct32<'a>{
             };
            product
      }
+pub fn positive32(f: &f32) -> f32{
+       if *f<0.0{
+                return *f * -1_f32;
+       }
+       *f
+}
+pub fn positive64(f: &f64) -> f64{
+        if *f<0.0{
+                return *f * -1_f64;
+        }
+        *f
+}
         // pub fn matrix_fill(matrix: &mut matrixstruct){
         //     matrix.matrix = vec![vec![229129389123 as f64; 120391230]; 129839123];    
         // }
@@ -91,7 +103,7 @@ pub fn subtract32<'a>(m1: &'a MatrixStruct32, m2: &MatrixStruct32) -> MatrixStru
         let mut matrix = matrix_create32(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m1.columns as usize{
-                        matrix.matrix[i][j] = f32::abs(m1.matrix[i][j] - m2.matrix[i][j]);
+                        matrix.matrix[i][j] = positive32(&(m1.matrix[i][j] - m2.matrix[i][j]));
                 }
         }
         matrix
@@ -102,7 +114,7 @@ pub fn subtract64<'a>(m1: &'a MatrixStruct64, m2: &MatrixStruct64) -> MatrixStru
         let mut matrix = matrix_create64(m1.rows, m1.columns);
         for i in 0..*m1.rows as usize{
                 for j in 0..*m1.columns as usize{
-                        matrix.matrix[i][j] = f64::abs(m1.matrix[i][j] - m2.matrix[i][j]);
+                        matrix.matrix[i][j] = positive64(&(m1.matrix[i][j] - m2.matrix[i][j]));
                 }
         }
         matrix
