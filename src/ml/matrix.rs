@@ -154,6 +154,26 @@ pub fn add_by_scalar64<'a>(m1: &'a MatrixStruct64, num: &f64) -> MatrixStruct64<
        }
    matrix
 }
+pub fn multiply_by_scalar32<'a>(m: &'a MatrixStruct32, num: &f32) -> MatrixStruct32<'a>{
+        let mut matrix = matrix_create32(m.rows, m.columns);
+        for i in 0..*m.rows as usize{
+                for j in 0..*m.columns as usize{
+                        matrix.matrix[i][j] = m.matrix[i][j] * *num;
+
+                }
+        }
+        matrix
+}
+pub fn multiply_by_scalar64<'a>(m: &'a MatrixStruct64, num: &f64) -> MatrixStruct64<'a>{
+        let mut matrix = matrix_create64(m.rows, m.columns);
+        for i in 0..*m.rows as usize{
+                for j in 0..*m.columns as usize{
+                        matrix.matrix[i][j] = m.matrix[i][j] * *num;
+
+                }
+        }
+        matrix
+}
 pub fn transpose32<'a>(m: &'a MatrixStruct32) -> MatrixStruct32<'a>{
         let mut matrix = matrix_create32(m.columns, m.rows);
         for i in 0..*m.rows as usize{
