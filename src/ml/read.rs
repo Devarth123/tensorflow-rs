@@ -23,7 +23,7 @@ pub fn count_new_lines(string: &str) -> u16{
     }
     new_lines
 }
-pub fn read_csv(path_of_the_file: &str) -> Vec<Vec<f32>>{
+pub fn read_csv(path_of_the_file: &str, how_many_lines_do_want: u8) -> Vec<Vec<f32>>{
    let data: String = fs::read_to_string(&path_of_the_file).unwrap();
    let data = breaker(&data); 
    let mut str_to_f32: Vec<Vec<f32>> = Vec::new();
@@ -45,3 +45,5 @@ pub fn read_csv(path_of_the_file: &str) -> Vec<Vec<f32>>{
    }
     str_to_f32
 }
+
+

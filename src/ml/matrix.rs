@@ -9,13 +9,12 @@ pub struct MatrixStruct64<'a>{
             pub matrix: Vec<Vec<f64>>,
      }
 pub fn matrix_create32<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct32<'a>{
-            let mut vec: Vec<Vec<f32>> = vec![vec![0.0; *row as usize]; *column as usize];  
-            let mut product: MatrixStruct32 = MatrixStruct32{
+            let vec: Vec<Vec<f32>> = vec![vec![0.0; *row as usize]; *column as usize];  
+            MatrixStruct32{
                 rows: row,
                 columns: column,
                 matrix: vec,
-            };
-           product
+            }
      }
 pub fn positive32(f: &f32) -> f32{
        if *f<0.0{
@@ -33,13 +32,12 @@ pub fn positive64(f: &f64) -> f64{
         //     matrix.matrix = vec![vec![229129389123 as f64; 120391230]; 129839123];    
         // }
 pub fn matrix_create64<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct64<'a>{
-            let mut vec: Vec<Vec<f64>> = vec![vec![0.0; *row as usize]; *column as usize];  
-            let mut product: MatrixStruct64 = MatrixStruct64{
+            let  vec: Vec<Vec<f64>> = vec![vec![0.0; *row as usize]; *column as usize];  
+            MatrixStruct64{
                 rows: row,
                 columns: column,
                 matrix: vec,
-            };
-           product
+            }
      }
 pub fn dot32<'a>(m1: MatrixStruct32<'a>, m2: MatrixStruct32<'a>) ->  MatrixStruct32<'a>{
         assert_eq!(m1.rows, m2.columns, "the dimensions dont match matrix1.row = {} \t matrix2.column = {}", m1.rows, m2.columns);
