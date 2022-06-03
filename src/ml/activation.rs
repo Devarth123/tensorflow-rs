@@ -16,4 +16,15 @@ pub fn sigmoid_prime64<'a>(m: &'a matrix::MatrixStruct64) -> matrix::MatrixStruc
         matrix = matrix::subtract64(m, &subtracted_matrix);
     }
     matrix
-} 
+}
+
+// 0 means sigmoid and 1 relu (not added yet) 
+pub fn apply(function: &u8, m: &mut matrix::MatrixStruct64) {
+   if *function == 0{
+      for i in 0..*m.rows as usize{
+          for j in 0..*m.columns as usize{
+              m.matrix[i][j] = sigmoid(&(m.matrix[i][j]));
+          }
+      }  
+   }   
+}

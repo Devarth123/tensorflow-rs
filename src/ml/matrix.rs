@@ -32,11 +32,10 @@ pub fn positive64(f: &f64) -> f64{
         //     matrix.matrix = vec![vec![229129389123 as f64; 120391230]; 129839123];    
         // }
 pub fn matrix_create64<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct64<'a>{
-            let  vec: Vec<Vec<f64>> = vec![vec![0.0; *row as usize]; *column as usize];  
             MatrixStruct64{
                 rows: row,
                 columns: column,
-                matrix: vec,
+                matrix: vec![vec![0.0; *row as usize]; *column as usize]
             }
      }
 pub fn dot32<'a>(m1: &'a MatrixStruct32, m2: &'a MatrixStruct32) ->  MatrixStruct32<'a>{

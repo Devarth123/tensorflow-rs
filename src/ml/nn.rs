@@ -16,7 +16,6 @@ pub fn neural_network64<'a>(parameters_: &'a [u16], learning_rate_: &'a f32) -> 
   } 
 }
 pub fn neural_network_train64(nn: &mut NeuralNetwork64, input: &matrix::MatrixStruct64, output: &matrix::MatrixStruct64){
-   // let  
-   let hidden_outputs = matrix::dot64(&nn.hidden_weights, input);
-   
+       // let hidden_inputs = matrix::dot64(nn.hidden_weights, input) 
+        
 }
