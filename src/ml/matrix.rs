@@ -39,7 +39,7 @@ pub fn matrix_create64<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct64<'a>{
                 matrix: vec,
             }
      }
-pub fn dot32<'a>(m1: MatrixStruct32<'a>, m2: MatrixStruct32<'a>) ->  MatrixStruct32<'a>{
+pub fn dot32<'a>(m1: &'a MatrixStruct32, m2: &'a MatrixStruct32) ->  MatrixStruct32<'a>{
         assert_eq!(m1.rows, m2.columns, "the dimensions dont match matrix1.row = {} \t matrix2.column = {}", m1.rows, m2.columns);
         let mut matrix: MatrixStruct32 = matrix_create32(m1.rows, m2.columns); 
         for i in 0..*m1.rows as usize{
@@ -55,7 +55,7 @@ pub fn dot32<'a>(m1: MatrixStruct32<'a>, m2: MatrixStruct32<'a>) ->  MatrixStruc
    matrix
 }
 
-pub fn dot64<'a>(m1: MatrixStruct64<'a>, m2: MatrixStruct64<'a>) ->  MatrixStruct64<'a>{
+pub fn dot64<'a>(m1: &'a MatrixStruct64, m2: &'a MatrixStruct64) ->  MatrixStruct64<'a>{
         assert_eq!(m1.rows, m2.columns, "the dimensions dont match matrix1.row = {} \t matrix2.column = {}", m1.rows, m2.columns);
         // assert_eq!(m1.rows, m2.columns);
         let mut matrix: MatrixStruct64 = matrix_create64(m1.rows, m2.columns); 
@@ -189,4 +189,10 @@ pub fn transpose64<'a>(m: &'a MatrixStruct64) -> MatrixStruct64<'a>{
                 }
         }
         matrix
+}
+pub fn sigmoid_matrix<'a>(r: &'a u16, c: &'a u16) -> MatrixStruct64<'a>{
+        MatrixStruct64{
+                rows: r,
+                columns: c,
+                matrix: vec![vec![1.0; *r as usize]; *c as usize] }
 }
