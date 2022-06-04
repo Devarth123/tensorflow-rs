@@ -19,12 +19,14 @@ pub fn sigmoid_prime64<'a>(m: &'a matrix::MatrixStruct64) -> matrix::MatrixStruc
 }
 
 // 0 means sigmoid and 1 relu (not added yet) 
-pub fn apply(function: &u8, m: &mut matrix::MatrixStruct64) {
+pub fn apply<'a>(function: &u8, m: &'a matrix::MatrixStruct64) -> matrix::MatrixStruct64<'a>{
+    let mut matrix = matrix::matrix_create64(m.rows, m.columns);
    if *function == 0{
       for i in 0..*m.rows as usize{
           for j in 0..*m.columns as usize{
-              m.matrix[i][j] = sigmoid(&(m.matrix[i][j]));
+              matrix.matrix[i][j] = sigmoid(&(m.matrix[i][j]));
           }
       }  
-   }   
+   }  
+   matrix
 }
