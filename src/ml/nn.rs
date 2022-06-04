@@ -31,12 +31,12 @@ pub fn neural_network_train64(nn: &mut NeuralNetwork64, input: &matrix::MatrixSt
         // error  
         // let sigmoid_prime_matrix = activation::sigmoid_prime64(&final_outputs); 
         let multiplied_matrix = matrix::multiply64(&output_errors , &(activation::sigmoid_prime64(&final_outputs))); 
-        let dot_matrix = matrix::dot64(&multiplied_matrix, matrix::transpose64(&hidden_ouputs));
+        let dot_matrix = matrix::dot64(&multiplied_matrix, &matrix::transpose64(&hidden_ouputs));
         let scaled_matrix = matrix::scale(&nn.learning_rate, &dot_matrix);
         nn.output_weights = matrix::add64(&nn.output_weights, &scaled_matrix);  
-        let multiplied_matrix = matrix::matrix_create64(&hidden_errors, &(activation::sigmoid_prime64(&hidden_ouputs)));
-        let dot_matrix = matrix::dot64(&multiplied_matrix, matrix::transpose64(input));
+        let multiplied_matrix = matrix::multiply64(&hidden_errors, &(activation::sigmoid_prime64(&hidden_ouputs)));
+        let dot_matrix = matrix::dot64(&multiplied_matrix, &matrix::transpose64(&input));
         let scaled_matrix = matrix::scale(&nn.learning_rate, &dot_matrix);
-        nn.hidden_weights = matrix::add64(&nn.learning_rate, &scaled_matrix);
+        nn.hidden_weights = matrix::add64(&nn.hidden_weights, &scaled_matrix);
     }
 }
