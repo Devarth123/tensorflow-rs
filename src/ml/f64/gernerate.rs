@@ -1,11 +1,13 @@
 extern crate rand;
-
 use rand::Rng;
 use std::collections::HashMap;
 
 pub fn storing_labels<'a>(formated_data: &'a Vec<f32>, labels: &mut HashMap<u16, &'a [f32]>) {
     labels.insert(formated_data[0] as u16, &formated_data[1..]);
 }
+
+
+
 pub fn gernerate_imgs<'a>(
     labels: HashMap<u16, &'a Vec<Vec<f32>>>,
     range: &u32,

@@ -1,6 +1,6 @@
 pub struct MatrixStruct{
         pub rows: u16,
-        pub columns: u16,
+       pub columns: u16,
         pub matrix: Vec<Vec<f64>>,
 }
 pub fn matrix_create<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct{
@@ -9,6 +9,14 @@ pub fn matrix_create<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct{
                 rows: *row,
                 columns: *column,
                 matrix: vec,
+        }
+}
+pub fn matrix_display(m: &MatrixStruct){
+        for i in 0..m.rows as usize{
+                for j in 0..m.columns as usize{
+                        print!("{}", m.matrix[i][j]);
+                }
+                println!();
         }
 }
 pub fn positive(f: &f64) -> f64{
