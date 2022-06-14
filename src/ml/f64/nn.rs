@@ -2,17 +2,17 @@
 use crate::ml::f64::activation;
 use crate::ml::f64::matrix::MatrixStruct;
 
-pub struct NeuralNetwork<'a> {
-    parameters: &'a [u16], //the first index will be the input layer (parameters[0]) , the last index will be the output layer (parameters[parameters.len()-1]) and lastly the rest of the vaues will be the hidden_layer (parameters[1..parameters.len()-2])
+pub struct NeuralNetwork{
+    parameters: Box<[u16]>, //the first index will be the input layer (parameters[0]) , the last index will be the output layer (parameters[parameters.len()-1]) and lastly the rest of the vaues will be the hidden_layer (parameters[1..parameters.len()-2])
     learning_rate: f64,
     hidden_weights: MatrixStruct,
     output_weights: MatrixStruct,
 }
 
-impl <'a>NeuralNetwork<'a>{
-    pub fn neural_network(parameters_: &'a [u16], learning_rate_: &f64) -> NeuralNetwork<'a> {
+impl NeuralNetwork{
+    pub fn new(parameters_: &Box<[u16]>, learning_rate_: &f64) -> NeuralNetwork {
         NeuralNetwork {
-            parameters: parameters_,
+            parameters: Box::clone(parameters_),
             learning_rate: *learning_rate_,
             hidden_weights: MatrixStruct::matrix_create(&parameters_[1], &parameters_[0]),
             output_weights: MatrixStruct::matrix_create(
