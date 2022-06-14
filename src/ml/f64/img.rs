@@ -1,15 +1,15 @@
-use crate::ml::f64::matrix;
+use crate::ml::f64::matrix::MatrixStruct;
 
 pub struct Img {
     pub label: u8,
-    pub matrix: matrix::MatrixStruct,
+    pub matrix: MatrixStruct,
 }
 
 impl Img{
     pub fn new() -> Img{
         Img{
             label: 0,
-            matrix: matrix::matrix_create(&28, &28)
+            matrix: MatrixStruct::matrix_create(&28, &28)
         }
     }
 }

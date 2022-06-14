@@ -12,7 +12,6 @@ pub fn count_new_lines(string: &str) -> u16 {
     new_lines
 }
 
-
 pub fn format_data<const LEN: usize>(string: &[u8], lines: &usize) -> Vec<img::Img> {
     let mut imgs: Vec<img::Img> = Vec::with_capacity(*lines);
     let mut a: [f64; LEN] = [0.0; LEN];
@@ -23,8 +22,8 @@ pub fn format_data<const LEN: usize>(string: &[u8], lines: &usize) -> Vec<img::I
                 a[i] = string[i].to_string().parse::<f64>().unwrap();
             } else {
                 let mut img = img::Img::new();
-                for j in 0..28{
-                        img.matrix.matrix[j] = a[stupid..i].to_vec(); 
+                for j in 0..28 {
+                    img.matrix.matrix[j] = a[stupid..i].to_vec();
                 }
                 imgs.push(img);
                 let stupid = stupid + 28;
