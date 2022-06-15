@@ -12,7 +12,7 @@ pub struct NeuralNetwork {
 impl NeuralNetwork {
     pub fn new(parameters_: &Box<[usize]>, learning_rate_: &f32) -> NeuralNetwork {
         NeuralNetwork {
-            parameters: *parameters_,
+            parameters: Box::clone(&*parameters_),
             learning_rate: *learning_rate_,
             hidden_weights: MatrixStruct::matrix_create(&parameters_[1], &parameters_[0]),
             output_weights: MatrixStruct::matrix_create(
