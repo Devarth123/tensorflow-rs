@@ -23,7 +23,11 @@ pub fn format_data<const LEN: usize>(string: &[u8], lines: &usize) -> Vec<img::I
             } else {
                 let mut img = img::Img::new();
                 for j in 0..28 {
-                    img.matrix.matrix[j] = a[stupid..i].to_vec();
+                    if j == 0 {
+                        img.label = a[j] as u8;
+                    } else {
+                        img.matrix.matrix[j] = a[stupid..i].to_vec();
+                    }
                 }
                 imgs.push(img);
                 let stupid = stupid + 28;
