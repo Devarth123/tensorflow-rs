@@ -36,6 +36,7 @@ pub fn format_data<const LEN: usize>(string: &[u8], lines: &usize) -> Vec<img::I
     }
     imgs
 }
+
 pub fn read_csv(path_of_the_file: &str, lines: &usize) -> Vec<img::Img> {
     const MAXCHAR: usize = 10000; //this numbr cuz each linne has basically 10000 bytes
     let mut string: [u8; MAXCHAR] = [0; MAXCHAR];

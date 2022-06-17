@@ -1,13 +1,12 @@
-use crate::ml::f64::read;
 
 pub struct MatrixStruct {
-    pub rows: u16,
-    pub columns: u16,
+    pub rows: usize,
+    pub columns: usize,
     pub matrix: Vec<Vec<f64>>,
 }
 impl MatrixStruct {
-    pub fn matrix_create<'a>(row: &'a u16, column: &'a u16) -> MatrixStruct {
-        let vec: Vec<Vec<f64>> = vec![vec![0.0; *row as usize]; *column as usize];
+    pub fn from<'a>(row: &'a usize, column: &'a usize) -> MatrixStruct {
+        let vec: Vec<Vec<f64>> = vec![vec![0.0; *row  ]; *column ];
         MatrixStruct {
             rows: *row,
             columns: *column,
@@ -15,8 +14,8 @@ impl MatrixStruct {
         }
     }
     pub fn matrix_display(&self) {
-        for i in 0..self.rows as usize {
-            for j in 0..self.columns as usize {
+        for i in 0..self.rows  {
+            for j in 0..self.columns   {
                 print!("{} ", self.matrix[i][j]);
             }
             println!();
@@ -34,11 +33,11 @@ impl MatrixStruct {
             "the dimensions dont match matrix1.row = {} \t matrix2.column = {}",
             m1.rows, m2.columns
         );
-        let mut matrix: MatrixStruct = MatrixStruct::matrix_create(&m1.rows, &m2.columns);
-        for i in 0..m1.rows as usize {
-            for j in 0..m2.columns as usize {
+        let mut matrix: MatrixStruct = MatrixStruct::from(&m1.rows, &m2.columns);
+        for i in 0..m1.rows   {
+            for j in 0..m2.columns   {
                 let mut product: f64 = 0.0;
-                for k in 0..m2.rows as usize {
+                for k in 0..m2.rows   {
                     product += m1.matrix[i][k] * m2.matrix[j][k];
                 }
                 matrix.matrix[i][j] = product;
@@ -48,10 +47,10 @@ impl MatrixStruct {
     }
     pub fn add(m1: &MatrixStruct, m2: &MatrixStruct) -> MatrixStruct {
         assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns);
-        let mut matrix: MatrixStruct = MatrixStruct::matrix_create(&m1.rows, &m1.columns);
+        let mut matrix: MatrixStruct = MatrixStruct::from(&m1.rows, &m1.columns);
         // if (m1.rows == m2.columns) && (m1.columns == m2.columns) {
-        for i in 0..m1.rows as usize {
-            for j in 0..m1.columns as usize {
+        for i in 0..m1.rows   {
+            for j in 0..m1.columns   {
                 matrix.matrix[i][j] = m1.matrix[i][j] + m2.matrix[i][j];
             }
         }
@@ -59,9 +58,9 @@ impl MatrixStruct {
     }
     pub fn subtract(m1: &MatrixStruct, m2: &MatrixStruct) -> MatrixStruct {
         assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns);
-        let mut matrix = MatrixStruct::matrix_create(&m1.rows, &m1.columns);
-        for i in 0..m1.rows as usize {
-            for j in 0..m1.columns as usize {
+        let mut matrix = MatrixStruct::from(&m1.rows, &m1.columns);
+        for i in 0..m1.rows   {
+            for j in 0..m1.columns   {
                 matrix.matrix[i][j] = MatrixStruct::positive(&(m1.matrix[i][j] - m2.matrix[i][j]));
             }
         }
@@ -70,27 +69,27 @@ impl MatrixStruct {
 
     pub fn multiply(m1: &MatrixStruct, m2: &MatrixStruct) -> MatrixStruct {
         assert!(m1.rows == m2.rows && m1.columns == m2.columns, "the dimensions dont match matrix1.rows = {}, matrix1.columns = {}, matrix2.rows = {}, matrix2.columns = {}", m1.rows, m1.columns, m2.rows, m2.columns);
-        let mut matrix = MatrixStruct::matrix_create(&m1.rows, &m1.columns);
-        for i in 0..m1.rows as usize {
-            for j in 0..m2.columns as usize {
+        let mut matrix = MatrixStruct::from(&m1.rows, &m1.columns);
+        for i in 0..m1.rows   {
+            for j in 0..m2.columns   {
                 matrix.matrix[i][j] = m1.matrix[i][j] * m2.matrix[i][j];
             }
         }
         matrix
     }
     pub fn add_by_scalar(m1: &MatrixStruct, num: &f64) -> MatrixStruct {
-        let mut matrix = MatrixStruct::matrix_create(&m1.rows, &m1.columns);
-        for i in 0..m1.rows as usize {
-            for j in 0..m1.columns as usize {
+        let mut matrix = MatrixStruct::from(&m1.rows, &m1.columns);
+        for i in 0..m1.rows   {
+            for j in 0..m1.columns   {
                 matrix.matrix[i][j] += *num;
             }
         }
         matrix
     }
     pub fn multiply_by_scalar(m: &MatrixStruct, num: &f64) -> MatrixStruct {
-        let mut matrix = MatrixStruct::matrix_create(&m.rows, &m.columns);
-        for i in 0..m.rows as usize {
-            for j in 0..m.columns as usize {
+        let mut matrix = MatrixStruct::from(&m.rows, &m.columns);
+        for i in 0..m.rows   {
+            for j in 0..m.columns   {
                 matrix.matrix[i][j] = m.matrix[i][j] * *num;
             }
         }
@@ -98,18 +97,18 @@ impl MatrixStruct {
     }
     pub fn transpose(m: &MatrixStruct) -> MatrixStruct {
         assert_ne!(m.rows, m.columns);
-        let mut matrix = MatrixStruct::matrix_create(&m.columns, &m.rows);
-        for i in 0..m.rows as usize {
-            for j in 0..m.columns as usize {
+        let mut matrix = MatrixStruct::from(&m.columns, &m.rows);
+        for i in 0..m.rows {
+            for j in 0..m.columns {
                 matrix.matrix[j][i] = m.matrix[i][j];
             }
         }
         matrix
     }
     pub fn copy_matrix(m: &MatrixStruct) -> MatrixStruct {
-        let mut cp_matrix = MatrixStruct::matrix_create(&m.rows, &m.columns);
-        for i in 0..m.rows as usize {
-            for j in 0..m.columns as usize {
+        let mut cp_matrix = MatrixStruct::from(&m.rows, &m.columns);
+        for i in 0..m.rows {
+            for j in 0..m.columns {
                 cp_matrix.matrix[i][j] = m.matrix[i][j];
             }
         }
@@ -118,11 +117,24 @@ impl MatrixStruct {
     //sometimes the rust is not in the mood
     pub fn scale(num: &f64, m1: &MatrixStruct) -> MatrixStruct {
         let mut m = MatrixStruct::copy_matrix(m1);
-        for i in 0..m.rows as usize {
-            for j in 0..m.columns as usize {
+        for i in 0..m.rows {
+            for j in 0..m.columns {
                 m.matrix[i][j] *= num;
             }
         }
+        m
+    }
+
+    pub fn flatten(matrix: &MatrixStruct) -> MatrixStruct {
+        let c = matrix.rows * matrix.columns;
+        let mut m = MatrixStruct::from(&c, &0);
+        let mut v: Vec<f64> = Vec::with_capacity(c);
+        for i in 0..matrix.rows {
+            for j in 0..matrix.columns {
+                v.push(matrix.matrix[i][j]);
+            }
+        }
+        m.matrix = vec![v; 1];
         m
     }
 }

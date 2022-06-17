@@ -5,11 +5,11 @@ pub struct Img {
     pub matrix: MatrixStruct,
 }
 
-impl Img{
-    pub fn new() -> Img{
-        Img{
+impl Img {
+    pub fn new() -> Img {
+        Img {
             label: 0,
-            matrix: MatrixStruct::matrix_create(&28, &28)
+            matrix: MatrixStruct::from(&28, &28),
         }
     }
 }
