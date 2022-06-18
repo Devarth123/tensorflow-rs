@@ -8,6 +8,14 @@ pub fn sigmoid(input: &f64) -> f64 {
     1.0 / (1.0 + exp(&(-1.0 * input)))
 }
 
+pub fn max(f: &f64) -> f64 {
+    if *f > 0.0 {
+        *f
+    } else {
+        0.0
+    }
+}
+
 pub fn sigmoid_prime(m: &MatrixStruct) -> MatrixStruct {
     let mut matrix = MatrixStruct::from(&m.rows, &m.columns);
     {
@@ -17,7 +25,6 @@ pub fn sigmoid_prime(m: &MatrixStruct) -> MatrixStruct {
     matrix
 }
 
-// 0 means sigmoid and 1 relu (not added yet)
 pub fn apply(function: &u8, m: &MatrixStruct) -> MatrixStruct {
     let mut matrix = MatrixStruct::from(&m.rows, &m.columns);
     if *function == 0 {
@@ -26,6 +33,6 @@ pub fn apply(function: &u8, m: &MatrixStruct) -> MatrixStruct {
                 matrix.matrix[i][j] = sigmoid(&(m.matrix[i][j]));
             }
         }
-    }
+    } 
     matrix
 }

@@ -15,7 +15,7 @@ pub fn count_new_lines(string: &str) -> u16 {
 pub fn format_data<const LEN: usize>(string: &[u8], lines: &usize) -> Vec<img::Img> {
     let mut imgs: Vec<img::Img> = Vec::with_capacity(*lines);
     let mut a: [f64; LEN] = [0.0; LEN];
-    let stupid = 0;
+    let iter = 0;
     for i in 0..string.len() {
         if string[i] != b',' {
             if string[i] != b'\n' {
@@ -26,11 +26,11 @@ pub fn format_data<const LEN: usize>(string: &[u8], lines: &usize) -> Vec<img::I
                     if j == 0 {
                         img.label = a[j] as u8;
                     } else {
-                        img.matrix.matrix[j] = a[stupid..i].to_vec();
+                        img.matrix.matrix[j] = a[iter..i].to_vec();
                     }
                 }
                 imgs.push(img);
-                let stupid = stupid + 28;
+                let iter = iter + 28;
             }
         }
     }
@@ -46,3 +46,5 @@ pub fn read_csv(path_of_the_file: &str, lines: &usize) -> Vec<img::Img> {
     }
     format_data::<MAXCHAR>(&string, lines)
 }
+
+

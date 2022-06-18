@@ -11,7 +11,7 @@ pub struct NeuralNetwork {
 }
 
 impl NeuralNetwork {
-    pub fn new(parameters_: &Box<[usize]>, learning_rate_: &f64) -> NeuralNetwork {
+    pub fn from(parameters_: &Box<[usize]>, learning_rate_: &f64) -> NeuralNetwork {
         NeuralNetwork {
             parameters: Box::clone(parameters_),
             learning_rate: *learning_rate_,
@@ -51,16 +51,25 @@ impl NeuralNetwork {
         nn.hidden_weights = MatrixStruct::add(&nn.hidden_weights, &scaled_matrix);
     }
 
-    pub fn train_batch_imgs(
-        nn: &mut NeuralNetwork,
-        imgs: &mut Vec<Img>,
-        ouput_row: &usize,
-    ) {
+    pub fn train_batch_imgs(nn: &mut NeuralNetwork, imgs: &mut Vec<Img>, ouput_row: &usize) {
         for i in imgs.iter() {
             let flatten = MatrixStruct::flatten(&i.matrix);
             //output = matrix::from(10, 1) // in this case
             NeuralNetwork::train(nn, &flatten, &(MatrixStruct::from(ouput_row, &1)));
-            
         }
+    }
+    pub fn loss(target: &Vec<f64>, m: &MatrixStruct) -> Vec<f64> {
+        let mut v: Vec<f64> = Vec::with_capacity(target.len());
+        let m = MatrixStruct::flatten(&m);
+        for i in 0..m.columns {
+            v.push(target[i] - m.matrix[0][i]);
+        }
+        v
+    }
+    pub fn predic(nn: &NeuralNetwork, data: &MatrixStruct) -> MatrixStruct {
+        let hidden_inputs = MatrixStruct::dot(&nn.hidden_weights, data);
+        let hidden_ouputs = activation::apply(&0, &hidden_inputs);
+        let output_inputs = MatrixStruct::dot(&nn.output_weights, &hidden_ouputs);
+        activation::apply(&0, &output_inputs)
     }
 }
