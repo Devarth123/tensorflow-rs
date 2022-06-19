@@ -66,7 +66,7 @@ impl NeuralNetwork {
         }
         v
     }
-    pub fn predic(nn: &NeuralNetwork, data: &MatrixStruct) -> MatrixStruct {
+    pub fn predict(nn: &NeuralNetwork, data: &MatrixStruct) -> MatrixStruct {
         let hidden_inputs = MatrixStruct::dot(&nn.hidden_weights, data);
         let hidden_ouputs = activation::apply(&0, &hidden_inputs);
         let output_inputs = MatrixStruct::dot(&nn.output_weights, &hidden_ouputs);

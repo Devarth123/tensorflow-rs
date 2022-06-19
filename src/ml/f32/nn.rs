@@ -1,8 +1,7 @@
 //will be optimizing the code very soon.
 use crate::ml::f32::activation;
-use crate::ml::f32::matrix::MatrixStruct;
 use crate::ml::f32::img::Img;
-
+use crate::ml::f32::matrix::MatrixStruct;
 
 // use crate::ml::f32::img::Img;
 
@@ -25,11 +24,7 @@ impl NeuralNetwork {
             ),
         }
     }
-    pub fn train(
-        nn: &mut NeuralNetwork,
-        input: &MatrixStruct,
-        output: &MatrixStruct,
-    ) {
+    pub fn train(nn: &mut NeuralNetwork, input: &MatrixStruct, output: &MatrixStruct) {
         {
             //doing teh basic things to find the errors
             let hidden_inputs = MatrixStruct::dot(&nn.hidden_weights, input);
@@ -63,16 +58,26 @@ impl NeuralNetwork {
         }
     }
 
-    pub fn train_batch_imgs(
-        nn: &mut NeuralNetwork,
-        imgs: &mut Vec<Img>,
-        ouput_row: &usize,
-    ) {
+    pub fn train_batch_imgs(nn: &mut NeuralNetwork, imgs: &mut Vec<Img>, ouput_row: &usize) {
         for i in imgs.iter() {
             let flatten = MatrixStruct::flatten(&i.matrix);
             //output = matrix::from(10, 1) // in this case
             NeuralNetwork::train(nn, &flatten, &(MatrixStruct::from(ouput_row, &1)));
-            
         }
+    }
+
+    pub fn loss(target: &Vec<f32>, m: &MatrixStruct) -> Vec<f32> {
+        let mut v: Vec<f32> = Vec::with_capacity(target.len());
+        let m = MatrixStruct::flatten(&m);
+        for i in 0..m.columns {
+            v.push(target[i] - m.matrix[0][i]);
+        }
+        v
+    }
+    pub fn predict(nn: &NeuralNetwork, data: &MatrixStruct) -> MatrixStruct {
+        let hidden_inputs = MatrixStruct::dot(&nn.hidden_weights, data);
+        let hidden_ouputs = activation::apply(&0, &hidden_inputs);
+        let output_inputs = MatrixStruct::dot(&nn.output_weights, &hidden_ouputs);
+        activation::apply(&0, &output_inputs)
     }
 }

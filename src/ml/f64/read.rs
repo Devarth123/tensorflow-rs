@@ -46,5 +46,3 @@ pub fn read_csv(path_of_the_file: &str, lines: &usize) -> Vec<img::Img> {
     }
     format_data::<MAXCHAR>(&string, lines)
 }
-
-

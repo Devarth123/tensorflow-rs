@@ -16,6 +16,7 @@ pub fn max(f: &f64) -> f64 {
     }
 }
 
+//0 means sigmoid and 1 means Relu
 pub fn sigmoid_prime(m: &MatrixStruct) -> MatrixStruct {
     let mut matrix = MatrixStruct::from(&m.rows, &m.columns);
     {
@@ -33,6 +34,12 @@ pub fn apply(function: &u8, m: &MatrixStruct) -> MatrixStruct {
                 matrix.matrix[i][j] = sigmoid(&(m.matrix[i][j]));
             }
         }
-    } 
+    } else if *function == 1 {
+        for i in 0..matrix.rows {
+            for j in 0..matrix.columns {
+                matrix.matrix[i][j] = max(&m.matrix[i][j]);
+            }
+        }
+    }
     matrix
 }
