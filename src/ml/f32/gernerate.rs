@@ -15,4 +15,3 @@ pub fn gernerate_imgs<'a>(labels: HashMap<u16, &'a Vec<Vec<f32>>>, range: &u32) 
               None => panic!("the random gernerate_imgs() method is not working at line 49") 
          }
     }
-

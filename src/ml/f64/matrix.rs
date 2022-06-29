@@ -1,4 +1,5 @@
 
+#[derive(Debug)]
 pub struct MatrixStruct {
     pub rows: usize,
     pub columns: usize,
@@ -105,7 +106,7 @@ impl MatrixStruct {
         }
         matrix
     }
-    pub fn copy_matrix(m: &MatrixStruct) -> MatrixStruct {
+    pub fn clone(m: &MatrixStruct) -> MatrixStruct {
         let mut cp_matrix = MatrixStruct::from(&m.rows, &m.columns);
         for i in 0..m.rows {
             for j in 0..m.columns {
@@ -116,7 +117,7 @@ impl MatrixStruct {
     }
     //sometimes the rust is not in the mood
     pub fn scale(num: &f64, m1: &MatrixStruct) -> MatrixStruct {
-        let mut m = MatrixStruct::copy_matrix(m1);
+        let mut m = MatrixStruct::clone(m1);
         for i in 0..m.rows {
             for j in 0..m.columns {
                 m.matrix[i][j] *= num;

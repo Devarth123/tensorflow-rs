@@ -4,13 +4,23 @@ use crate::ml::f64::img::Img;
 use crate::ml::f64::matrix::MatrixStruct;
 
 pub struct NeuralNetwork {
-    parameters: Box<[usize]>, //the first index will be the input layer (parameters[0]) , the last index will be the output layer (parameters[parameters.len()-1]) and lastly the rest of the vaues will be the hidden_layer (parameters[1..parameters.len()-2])
-    learning_rate: f64,
-    hidden_weights: MatrixStruct,
-    output_weights: MatrixStruct,
+    pub parameters: Box<[usize]>, //the first index will be the input layer (parameters[0]) , the last index will be the output layer (parameters[parameters.len()-1]) and lastly the rest of the vaues will be the hidden_layer (parameters[1..parameters.len()-2])
+    pub learning_rate: f64,
+    pub hidden_weights: MatrixStruct,
+    pub output_weights: MatrixStruct,
 }
 
 impl NeuralNetwork {
+
+    pub fn clone(nn: &NeuralNetwork) -> NeuralNetwork{
+        NeuralNetwork{
+           parameters: Box::clone(&nn.parameters),
+           learning_rate: nn.learning_rate.clone(),
+           hidden_weights: MatrixStruct::clone(&nn.hidden_weights),
+           output_weights: MatrixStruct::clone(&nn.output_weights)
+        }
+    }
+
     pub fn from(parameters_: &Box<[usize]>, learning_rate_: &f64) -> NeuralNetwork {
         NeuralNetwork {
             parameters: Box::clone(parameters_),
