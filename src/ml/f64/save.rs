@@ -4,6 +4,7 @@ use std::io::prelude::*;
 use crate::ml::f64::matrix::MatrixStruct;
 use std::process::Command;
 
+#[derive(Clone, Debug)]
 #[allow(dead_code)]
 struct Save {
     path: String,
@@ -21,14 +22,15 @@ impl Save {
                     panic!("where is the path big brother?, didnt ask for a null string :< ");
                 }
             },
-            nn: NeuralNetwork::clone(&nn_),
+            nn: nn_.clone(),
         }
     }
     #[allow(dead_code)]
     pub fn mkdirs(&self) {
-        let cmd = Command::new("sh")
+        let cmd =  Command::new("/bin/sh")
+            .arg("-c")
             .arg(format!(
-                "-c mkdir -v -p {} {} {}",
+                "mkdir -v -p {} {} {}",
                 (self.path.clone() + &"/NeuralNetwork/output"),
                 (self.path.clone() + &"/NeuralNetwork/hidden"),
                 (self.path.clone() + &"/NeuralNetwork/input")
@@ -40,7 +42,7 @@ impl Save {
 
     #[allow(dead_code)]
     pub fn touch_files(&self){
-        let mut cmd = Command::new("touch");
+        let mut cmd = Command::new("/usr/bin/touch");
         let len = self.nn.parameters.len();
         for i in 0..len{
             match i{
